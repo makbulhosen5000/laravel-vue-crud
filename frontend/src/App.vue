@@ -1,11 +1,10 @@
 <script setup>
-
+import GuestLayout from './components/GuestLayout.vue';
+import Home from './views/Home.vue';
 </script>
 
 <template>
-    <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+    <router-view />
 </template>
 
 <style scoped>
