@@ -2,7 +2,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { RouterLink } from 'vue-router'
-import  Home  from '../views/Home.vue';
 import { reactive } from 'vue'
 
 

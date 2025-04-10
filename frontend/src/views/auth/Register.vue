@@ -1,13 +1,13 @@
 <script setup>
-import { ref } from 'vue';
-
+import { onMounted, ref } from 'vue';
 import { useAuthStore } from "@/stores/auth";
-
+import { storeToRefs } from "pinia";
 
 const regImgUrl="https://i.ibb.co.com/vjhV4YZ/register.jpg";
 
-// receive authStore from auth.js
-const authStore = useAuthStore();
+// access authenticate from auth.js
+const { errors } = storeToRefs(useAuthStore());
+const {authenticate} = useAuthStore();
 
 const formData = ref({
     name: '',
@@ -16,7 +16,9 @@ const formData = ref({
     password_confirmation: ''
   });
 
-  // show password function
+
+
+  // show eye icon in password field function
 const showPassword = ref(false)
 const togglePassword = () => {
   showPassword.value = !showPassword.value
@@ -31,20 +33,24 @@ const togglePassword = () => {
                 <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div class="sm:mx-auto sm:w-full sm:max-w-sm ">
                         <img class="mx-auto h-56 w-auto shadow-2xl" :src="regImgUrl" alt="Sign"  />
-                        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign Up to your account {{ authStore.user }}</h2>
+                        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign Up to your account</h2>
                     </div>
                     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm shadow-2xl p-4">
-                        <form @submit.prevent="console.log(formData)" class="space-y-6">
+                        <form
+                         @submit.prevent="authenticate('register',formData);"
+                          class="space-y-6">
                             <div>
                             <label for="name" class="block text-sm/6 font-medium text-gray-900">Name</label>
                             <div class="mt-2">
                                 <input v-model="formData.name" type="text" name="name" id="name" autocomplete="email" required="" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Enter your name" />
+                                
                             </div>
                             </div>
                             <div>
                             <label for="email" class="block text-sm/6 font-medium text-gray-900">Email</label>
                             <div class="mt-2">
                                 <input v-model="formData.email" type="email" name="email" id="email" autocomplete="email" required="" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Enter your email" />
+                               
                             </div>
                             </div>
                             <div>
@@ -58,6 +64,8 @@ const togglePassword = () => {
                             class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                             required
                             />
+                           
+                        
                             <button
                             type="button"
                             @click="togglePassword"
@@ -82,6 +90,7 @@ const togglePassword = () => {
                             <label for="password_confirmation" class="block text-sm/6 font-medium text-gray-900">Confirm Password</label>
                             <div class="mt-2">
                                 <input v-model="formData.password_confirmation" type="password" name="password_confirmation" id="password_confirmation" autocomplete="password_confirmation" required="" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
+
                             </div>
                             </div>
                     
